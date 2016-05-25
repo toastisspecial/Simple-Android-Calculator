@@ -1,3 +1,9 @@
+/*
+Author: Peter Johnson
+Description: Simple calculator app
+ */
+
+
 package com.example.peter.calculator;
 
 import android.support.v7.app.AppCompatActivity;
@@ -6,15 +12,19 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    public int runningTotal = 0;
-    public int runningNumber = 0;
+
+    public long runningTotal = 0;
+    public long runningNumber = 0;
     public List<Character> operators = new ArrayList<Character>();
-    public List<Integer> numbers = new ArrayList<Integer>();
+    public List<Long> numbers = new ArrayList<Long>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +85,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    int concatenateInt(int curNum)
+    long concatenateInt(int curNum)
     {
-        return Integer.valueOf(String.valueOf(runningNumber) + String.valueOf(curNum) );
+
+        try
+        {
+            long total = Long.valueOf(String.valueOf(runningNumber) + String.valueOf(curNum) );
+            return total;
+        }
+        catch (NumberFormatException ex)
+        {
+            Toast.makeText(getApplicationContext(), "Overflow Error", Toast.LENGTH_LONG).show();
+        }
+            return 0;
     }
 
     void refreshTotalView()
@@ -136,8 +156,18 @@ public class MainActivity extends AppCompatActivity {
         runningNumber = runningTotal;
 
         operators = new ArrayList<Character>();
-        numbers = new ArrayList<Integer>();
+        numbers = new ArrayList<Long>();
         runningTotal = 0;
 
+    }
+
+    public void clearClick(View view)
+    {
+        runningNumber = 0;
+        runningTotal = 0;
+        operators = new ArrayList<Character>();
+        numbers = new ArrayList<Long>();
+
+        refreshTotalView();
     }
 }
