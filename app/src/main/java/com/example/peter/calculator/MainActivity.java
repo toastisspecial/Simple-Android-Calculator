@@ -114,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
             numbers.add(runningNumber);
             operators.add('+');
             runningNumber = 0;
-            refreshTotalView();
         }
 
     }
@@ -126,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
             numbers.add(runningNumber);
             operators.add('-');
             runningNumber = 0;
-            refreshTotalView();
         }
 
     }
